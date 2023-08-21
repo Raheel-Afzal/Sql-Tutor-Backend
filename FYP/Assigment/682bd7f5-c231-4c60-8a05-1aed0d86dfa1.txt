@@ -1,0 +1,35 @@
+TASK 1.1
+
+Employee ( Eid, Ename,EAge, ECity, E_Street, E_House#, E_Basic_Salary, E_Bonus,E_Rank, E_Department)
+-	Eid is Primary key.
+-	E_Rank can be “Manager, Developer, Admin”
+-	E_Department can be “HR, CS, IT, Labour”
+-	Employee Age between 18 and 60.
+-	Default value for department is “CS”.
+
+Project( p_id, pName, p_bonus,duration_in_months, Eid)
+-	Pid and Eid combine makes Primary key.
+
+NOTE: Eid in project is foreign key from Employee. Write SQL Queries for the following statements.
+1-	Display whole address of employee along with name, columns names must be “Emp Name” and “Address”.
+
+
+
+
+2-	Display 30% top records of Employees.
+
+
+
+
+3-	Display names of all those employees whose address is “house number 44, street no 25, Rwp”.
+
+
+
+
+4-	Display data of employees who lives in “isb or rwp or khi or lhr”. (do not use or keyword)
+
+
+
+
+5-	Display those employees whose age is more than 18 and less than 33. (do not use relational operators “ > or <”.
+

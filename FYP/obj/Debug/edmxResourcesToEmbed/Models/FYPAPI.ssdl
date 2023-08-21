@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FYP1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Amarks">
+    <Key>
+      <PropertyRef Name="Mid" />
+    </Key>
+    <Property Name="Sid" Type="int" Nullable="false" />
+    <Property Name="AssignmentNumber" Type="int" Nullable="false" />
+    <Property Name="Amarks" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Mid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Assignment">
+    <Key>
+      <PropertyRef Name="Aid" />
+    </Key>
+    <Property Name="AssignmentNumber" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="QuestionText" Type="varchar(max)" Nullable="false" />
+    <Property Name="Deadline" Type="datetime" Nullable="false" />
+    <Property Name="DatabaseName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Section" Type="nvarchar(max)" />
+    <Property Name="Smester" Type="int" />
+    <Property Name="Aid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionNo" Type="int" />
+  </EntityType>
+  <EntityType Name="AssignmentSolutions">
+    <Key>
+      <PropertyRef Name="Sloid" />
+    </Key>
+    <Property Name="Sloid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssignmentNumber" Type="int" Nullable="false" />
+    <Property Name="Solution" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Smester" Type="int" Nullable="false" />
+    <Property Name="Section" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Enrollment">
+    <Key>
+      <PropertyRef Name="Sid" />
+    </Key>
+    <Property Name="Sid" Type="int" Nullable="false" />
+    <Property Name="Cid" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Query">
+    <Key>
+      <PropertyRef Name="Qid" />
+    </Key>
+    <Property Name="Qid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sid" Type="int" Nullable="false" />
+    <Property Name="AssignmentNumber" Type="int" Nullable="false" />
+    <Property Name="Qno" Type="int" Nullable="false" />
+    <Property Name="Qdetails" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Semester" Type="int" />
+    <Property Name="Section" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Solutions">
+    <Key>
+      <PropertyRef Name="SolutionId" />
+    </Key>
+    <Property Name="SolutionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssignmentNumber" Type="int" />
+    <Property Name="SolutionFilePath" Type="nvarchar(max)" />
+    <Property Name="Semester" Type="int" />
+    <Property Name="Section" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Sid" />
+    </Key>
+    <Property Name="Sid" Type="int" Nullable="false" />
+    <Property Name="Fname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Semester" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Section" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Semail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Spassword" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Name="Tid" Type="int" Nullable="false" />
+    <Property Name="Fname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Temail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tpassword" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="FYP1ModelStoreContainer">
+    <EntitySet Name="Amarks" EntityType="Self.Amarks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Assignment" EntityType="Self.Assignment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssignmentSolutions" EntityType="Self.AssignmentSolutions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Enrollment" EntityType="Self.Enrollment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Query" EntityType="Self.Query" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Solutions" EntityType="Self.Solutions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
