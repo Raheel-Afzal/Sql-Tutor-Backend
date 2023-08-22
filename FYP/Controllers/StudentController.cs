@@ -285,7 +285,6 @@ namespace FYPAPI.Controllers
                 return BadRequest("Invalid User plz check Email & password");
             }
 
-            return Ok(emp);
         }
 
         //[System.Web.Http.HttpGet]
