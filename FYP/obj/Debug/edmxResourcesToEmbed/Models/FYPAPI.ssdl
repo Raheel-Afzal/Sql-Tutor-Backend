@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="FYP1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="FYPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Amarks">
     <Key>
       <PropertyRef Name="Mid" />
@@ -32,6 +32,16 @@
     <Property Name="Solution" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Smester" Type="int" Nullable="false" />
     <Property Name="Section" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FYPDB.dbo.Database' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Database">
+    <Key>
+      <PropertyRef Name="Aid" />
+      <PropertyRef Name="DatabaseName" />
+    </Key>
+    <Property Name="Aid" Type="int" Nullable="false" />
+    <Property Name="DatabaseName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Enrollment">
     <Key>
@@ -74,16 +84,6 @@
     <Property Name="Semail" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Spassword" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="Teacher">
     <Key>
       <PropertyRef Name="Tid" />
@@ -94,7 +94,7 @@
     <Property Name="Temail" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Tpassword" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityContainer Name="FYP1ModelStoreContainer">
+  <EntityContainer Name="FYPDBModelStoreContainer">
     <EntitySet Name="Amarks" EntityType="Self.Amarks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Assignment" EntityType="Self.Assignment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AssignmentSolutions" EntityType="Self.AssignmentSolutions" Schema="dbo" store:Type="Tables" />
@@ -102,7 +102,12 @@
     <EntitySet Name="Query" EntityType="Self.Query" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Solutions" EntityType="Self.Solutions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Database" EntityType="Self.Database" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Database].[Aid] AS [Aid], 
+    [Database].[DatabaseName] AS [DatabaseName]
+    FROM [dbo].[Database] AS [Database]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

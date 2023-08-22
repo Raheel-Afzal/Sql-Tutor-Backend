@@ -32,7 +32,7 @@ namespace FYP.Models
         public virtual DbSet<Query> Queries { get; set; }
         public virtual DbSet<Solution> Solutions { get; set; }
         public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<Database> Databases { get; set; }
     }
 }

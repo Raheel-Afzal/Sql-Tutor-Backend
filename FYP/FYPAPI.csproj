@@ -207,6 +207,9 @@
     <Compile Include="Models\AssignmentSolution.cs">
       <DependentUpon>FYPAPI.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database.cs">
+      <DependentUpon>FYPAPI.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Enrollment.cs">
       <DependentUpon>FYPAPI.tt</DependentUpon>
     </Compile>
@@ -232,9 +235,6 @@
       <DependentUpon>FYPAPI.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Student.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>FYPAPI.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Teacher.cs">

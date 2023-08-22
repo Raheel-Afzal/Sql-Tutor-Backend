@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FYP1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FYPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Amarks">
           <Key>
             <PropertyRef Name="Mid" />
@@ -37,6 +37,16 @@
           <Property Name="Solution" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Smester" Type="int" Nullable="false" />
           <Property Name="Section" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FYPDB.dbo.Database' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Database">
+          <Key>
+            <PropertyRef Name="Aid" />
+            <PropertyRef Name="DatabaseName" />
+          </Key>
+          <Property Name="Aid" Type="int" Nullable="false" />
+          <Property Name="DatabaseName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Enrollment">
           <Key>
@@ -79,16 +89,6 @@
           <Property Name="Semail" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Spassword" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="Tid" />
@@ -99,7 +99,7 @@
           <Property Name="Temail" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Tpassword" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="FYP1ModelStoreContainer">
+        <EntityContainer Name="FYPDBModelStoreContainer">
           <EntitySet Name="Amarks" EntityType="Self.Amarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Assignment" EntityType="Self.Assignment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignmentSolutions" EntityType="Self.AssignmentSolutions" Schema="dbo" store:Type="Tables" />
@@ -107,13 +107,19 @@
           <EntitySet Name="Query" EntityType="Self.Query" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Solutions" EntityType="Self.Solutions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Database" EntityType="Self.Database" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Database].[Aid] AS [Aid], 
+    [Database].[DatabaseName] AS [DatabaseName]
+    FROM [dbo].[Database] AS [Database]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FYP1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="FYPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Amark">
           <Key>
             <PropertyRef Name="Mid" />
@@ -188,16 +194,6 @@
           <Property Name="Semail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Spassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="Tid" />
@@ -208,6 +204,14 @@
           <Property Name="Temail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Tpassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
+        <EntityType Name="Database">
+          <Key>
+            <PropertyRef Name="Aid" />
+            <PropertyRef Name="DatabaseName" />
+          </Key>
+          <Property Name="Aid" Type="Int32" Nullable="false" />
+          <Property Name="DatabaseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="FYP1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Amarks" EntityType="Self.Amark" />
           <EntitySet Name="Assignments" EntityType="Self.Assignment" />
@@ -216,17 +220,17 @@
           <EntitySet Name="Queries" EntityType="Self.Query" />
           <EntitySet Name="Solutions" EntityType="Self.Solution" />
           <EntitySet Name="Students" EntityType="Self.Student" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <EntitySet Name="Databases" EntityType="Self.Database" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FYP1ModelStoreContainer" CdmEntityContainer="FYP1Entities">
+        <EntityContainerMapping StorageEntityContainer="FYPDBModelStoreContainer" CdmEntityContainer="FYP1Entities">
           <EntitySetMapping Name="Amarks">
-            <EntityTypeMapping TypeName="FYP1Model.Amark">
+            <EntityTypeMapping TypeName="FYPDBModel.Amark">
               <MappingFragment StoreEntitySet="Amarks">
                 <ScalarProperty Name="Sid" ColumnName="Sid" />
                 <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
@@ -236,7 +240,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Assignments">
-            <EntityTypeMapping TypeName="FYP1Model.Assignment">
+            <EntityTypeMapping TypeName="FYPDBModel.Assignment">
               <MappingFragment StoreEntitySet="Assignment">
                 <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -251,7 +255,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AssignmentSolutions">
-            <EntityTypeMapping TypeName="FYP1Model.AssignmentSolution">
+            <EntityTypeMapping TypeName="FYPDBModel.AssignmentSolution">
               <MappingFragment StoreEntitySet="AssignmentSolutions">
                 <ScalarProperty Name="Sloid" ColumnName="Sloid" />
                 <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
@@ -262,7 +266,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Enrollments">
-            <EntityTypeMapping TypeName="FYP1Model.Enrollment">
+            <EntityTypeMapping TypeName="FYPDBModel.Enrollment">
               <MappingFragment StoreEntitySet="Enrollment">
                 <ScalarProperty Name="Sid" ColumnName="Sid" />
                 <ScalarProperty Name="Cid" ColumnName="Cid" />
@@ -270,20 +274,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Queries">
-            <EntityTypeMapping TypeName="FYP1Model.Query">
+            <EntityTypeMapping TypeName="FYPDBModel.Query">
               <MappingFragment StoreEntitySet="Query">
-                <ScalarProperty Name="Section" ColumnName="Section" />
-                <ScalarProperty Name="Semester" ColumnName="Semester" />
                 <ScalarProperty Name="Qid" ColumnName="Qid" />
                 <ScalarProperty Name="Sid" ColumnName="Sid" />
                 <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
                 <ScalarProperty Name="Qno" ColumnName="Qno" />
                 <ScalarProperty Name="Qdetails" ColumnName="Qdetails" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Solutions">
-            <EntityTypeMapping TypeName="FYP1Model.Solution">
+            <EntityTypeMapping TypeName="FYPDBModel.Solution">
               <MappingFragment StoreEntitySet="Solutions">
                 <ScalarProperty Name="SolutionId" ColumnName="SolutionId" />
                 <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
@@ -294,7 +298,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="FYP1Model.Student">
+            <EntityTypeMapping TypeName="FYPDBModel.Student">
               <MappingFragment StoreEntitySet="Student">
                 <ScalarProperty Name="Sid" ColumnName="Sid" />
                 <ScalarProperty Name="Fname" ColumnName="Fname" />
@@ -306,25 +310,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="FYP1Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Teachers">
-            <EntityTypeMapping TypeName="FYP1Model.Teacher">
+            <EntityTypeMapping TypeName="FYPDBModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
                 <ScalarProperty Name="Tid" ColumnName="Tid" />
                 <ScalarProperty Name="Fname" ColumnName="Fname" />
                 <ScalarProperty Name="Lname" ColumnName="Lname" />
                 <ScalarProperty Name="Temail" ColumnName="Temail" />
                 <ScalarProperty Name="Tpassword" ColumnName="Tpassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Databases">
+            <EntityTypeMapping TypeName="FYPDBModel.Database">
+              <MappingFragment StoreEntitySet="Database">
+                <ScalarProperty Name="Aid" ColumnName="Aid" />
+                <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

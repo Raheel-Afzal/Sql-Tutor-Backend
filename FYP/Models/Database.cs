@@ -12,12 +12,9 @@ namespace FYP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Database
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Aid { get; set; }
+        public string DatabaseName { get; set; }
     }
 }
