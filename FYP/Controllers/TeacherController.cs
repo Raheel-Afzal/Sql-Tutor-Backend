@@ -243,6 +243,7 @@ namespace FYPAPI.Controllers
             Db.SaveChanges();
             return Ok("Succesfulyy insert");
         }
+
         //[System.Web.Http.HttpPost]
         //public IHttpActionResult AssgEntry(Assignment a)
         //{
@@ -288,7 +289,7 @@ namespace FYPAPI.Controllers
         }
         //
 
-        string constr = "Data Source=DESKTOP-KIDCKCN;Integrated Security=True";
+        string constr = "data source=DESKTOP-UBEKQ4F;initial catalog=FYPDB;user id=sa;password=123;MultipleActiveResultSets=True";
         [Route("api/Teacher/GetDatabaseList")]
         public List<string> GetDatabaseList()
         {
@@ -302,12 +303,11 @@ namespace FYPAPI.Controllers
             string masterConnectionString = $"Server={serverName};Database=master;Trusted_Connection=True;";
 
             // Query the master database to get the list of all databases
-            using (SqlConnection connection = new SqlConnection(masterConnectionString))
+            using (SqlConnection connection = new SqlConnection(constr))
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("SELECT name FROM sys.databases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb','BIITDB','customer','DDBS','DBTUTOR','DDBS2018','Laptop Shop','MarbalF'," +
-                    "'MarbalFactory','paperP','Product','SqlASS1','WETest','WEproject','week5','WebApi','TreeView','TESTEF','TASK2')", connection))
+                using (SqlCommand command = new SqlCommand("SELECT name FROM sys.databases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb')", connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -329,10 +329,10 @@ namespace FYPAPI.Controllers
             var tableColumns = new List<TableColumnInfo>();
 
             // Build a connection string to the specified database on the same server
-            string connectionString = $"Server=(local);Database={databaseName};Trusted_Connection=True;";
+            string constr = "Server=DESKTOP-UBEKQ4F;Database=" + databaseName + ";user id=sa;password=123;MultipleActiveResultSets=True";
 
             // Query the specified database to get the list of all tables and their columns
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(constr))
             {
                 connection.Open();
 

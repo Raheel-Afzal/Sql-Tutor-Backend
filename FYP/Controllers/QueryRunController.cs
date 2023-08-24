@@ -23,9 +23,11 @@ namespace FYPAPI.Controllers
                 }
 
                 // Connection string for the SQL Server
+                string constr = "Server=DESKTOP-UBEKQ4F;Database=" + databaseName +";user id=sa;password=123;MultipleActiveResultSets=True";
+
                 string connectionString = "Server=DESKTOP-KIDCKCN;Database=" + databaseName + ";Trusted_Connection=True;";
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(constr))
                 {
                     await connection.OpenAsync();
 
