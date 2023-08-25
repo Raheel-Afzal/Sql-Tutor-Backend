@@ -40,7 +40,7 @@ namespace FYPAPI.Controllers
                         return NotFound();
 
                     // Get the file path of the solution
-                    var filePath = Path.Combine(@"G:\FYP\FYP\Uploads\", solution.SolutionFilePath);
+                    var filePath = Path.Combine("http://1192.168.1.22/FYP/Uploads/", solution.SolutionFilePath);
 
                     // Check if the file exists
                     if (!File.Exists(filePath))

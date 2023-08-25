@@ -436,8 +436,10 @@ namespace FYPAPI.Controllers
                 // Generate a unique filename
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
+                string path = HttpContext.Current.Server.MapPath("~/Uploads");
+
                 // Define the file path to save the uploaded file
-                var filePath = Path.Combine(@"G:\FYP\FYP\Assigment\", fileName);
+                var filePath = Path.Combine(path, fileName);
 
                 // Save the file to the server
                 file.SaveAs(filePath);
@@ -445,7 +447,7 @@ namespace FYPAPI.Controllers
                 // Create a new instance of the Assignment class
                 var assignment = new Assignment
                 {
-                    AssignmentNumber = assignmentNumber,
+                    AssignmentNumber = int.Parse(assignmentNumber.ToString()),
                     Title = title,
                     QuestionText = filePath,
                     Deadline = deadline,
