@@ -212,6 +212,7 @@ namespace FYPAPI.Controllers
         }
         //
         [System.Web.Http.HttpPost]
+        [Route("api/teacher/AddStudent")]
         public IHttpActionResult AddStudent(Student student)
         {
             try
