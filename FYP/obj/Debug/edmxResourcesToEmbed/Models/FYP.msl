@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FYPDBModelStoreContainer" CdmEntityContainer="FYP1Entities">
+    <EntitySetMapping Name="Amarks">
+      <EntityTypeMapping TypeName="FYPDBModel.Amark">
+        <MappingFragment StoreEntitySet="Amarks">
+          <ScalarProperty Name="Sid" ColumnName="Sid" />
+          <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
+          <ScalarProperty Name="Amarks" ColumnName="Amarks" />
+          <ScalarProperty Name="Mid" ColumnName="Mid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Assignments">
+      <EntityTypeMapping TypeName="FYPDBModel.Assignment">
+        <MappingFragment StoreEntitySet="Assignment">
+          <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+          <ScalarProperty Name="Smester" ColumnName="Smester" />
+          <ScalarProperty Name="Aid" ColumnName="Aid" />
+          <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignmentSolutions">
+      <EntityTypeMapping TypeName="FYPDBModel.AssignmentSolution">
+        <MappingFragment StoreEntitySet="AssignmentSolutions">
+          <ScalarProperty Name="Sloid" ColumnName="Sloid" />
+          <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
+          <ScalarProperty Name="Solution" ColumnName="Solution" />
+          <ScalarProperty Name="Smester" ColumnName="Smester" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enrollments">
+      <EntityTypeMapping TypeName="FYPDBModel.Enrollment">
+        <MappingFragment StoreEntitySet="Enrollment">
+          <ScalarProperty Name="Sid" ColumnName="Sid" />
+          <ScalarProperty Name="Cid" ColumnName="Cid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Queries">
+      <EntityTypeMapping TypeName="FYPDBModel.Query">
+        <MappingFragment StoreEntitySet="Query">
+          <ScalarProperty Name="Qid" ColumnName="Qid" />
+          <ScalarProperty Name="Sid" ColumnName="Sid" />
+          <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
+          <ScalarProperty Name="Qno" ColumnName="Qno" />
+          <ScalarProperty Name="Qdetails" ColumnName="Qdetails" />
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solutions">
+      <EntityTypeMapping TypeName="FYPDBModel.Solution">
+        <MappingFragment StoreEntitySet="Solutions">
+          <ScalarProperty Name="SolutionId" ColumnName="SolutionId" />
+          <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
+          <ScalarProperty Name="SolutionFilePath" ColumnName="SolutionFilePath" />
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="FYPDBModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="Sid" ColumnName="Sid" />
+          <ScalarProperty Name="Fname" ColumnName="Fname" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+          <ScalarProperty Name="Semail" ColumnName="Semail" />
+          <ScalarProperty Name="Spassword" ColumnName="Spassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="FYPDBModel.Teacher">
+        <MappingFragment StoreEntitySet="Teacher">
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+          <ScalarProperty Name="Fname" ColumnName="Fname" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+          <ScalarProperty Name="Temail" ColumnName="Temail" />
+          <ScalarProperty Name="Tpassword" ColumnName="Tpassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Databases">
+      <EntityTypeMapping TypeName="FYPDBModel.Database">
+        <MappingFragment StoreEntitySet="Database">
+          <ScalarProperty Name="Aid" ColumnName="Aid" />
+          <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -199,46 +199,46 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Amark.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Assignment.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssignmentSolution.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Enrollment.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FYPAPI.Context.cs">
+    <Compile Include="Models\FYP.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FYPAPI.Context.tt</DependentUpon>
+      <DependentUpon>FYP.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FYPAPI.cs">
+    <Compile Include="Models\FYP.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FYPAPI.Designer.cs">
+    <Compile Include="Models\FYP.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FYPAPI.edmx</DependentUpon>
+      <DependentUpon>FYP.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Query.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Solution.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Student.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Teacher.cs">
-      <DependentUpon>FYPAPI.tt</DependentUpon>
+      <DependentUpon>FYP.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -251,15 +251,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\FYPAPI.Context.tt">
+    <Content Include="Models\FYP.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FYPAPI.edmx</DependentUpon>
-      <LastGenOutput>FYPAPI.Context.cs</LastGenOutput>
+      <DependentUpon>FYP.edmx</DependentUpon>
+      <LastGenOutput>FYP.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FYPAPI.tt">
+    <Content Include="Models\FYP.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FYPAPI.edmx</DependentUpon>
-      <LastGenOutput>FYPAPI.cs</LastGenOutput>
+      <DependentUpon>FYP.edmx</DependentUpon>
+      <LastGenOutput>FYP.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -282,12 +282,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\FYPAPI.edmx">
+    <EntityDeploy Include="Models\FYP.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FYPAPI.Designer.cs</LastGenOutput>
+      <LastGenOutput>FYP.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\FYPAPI.edmx.diagram">
-      <DependentUpon>FYPAPI.edmx</DependentUpon>
+    <Content Include="Models\FYP.edmx.diagram">
+      <DependentUpon>FYP.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
