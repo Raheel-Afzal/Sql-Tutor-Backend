@@ -40,7 +40,8 @@ namespace FYPAPI.Controllers
                         return NotFound();
 
                     // Get the file path of the solution
-                    var filePath = Path.Combine("http://1192.168.1.22/FYP/Uploads/", solution.SolutionFilePath);
+                    var uploadsFolder = HttpContext.Current.Server.MapPath("~/Uploads"); 
+                    var filePath = Path.Combine(uploadsFolder, solution.SolutionFilePath);
 
                     // Check if the file exists
                     if (!File.Exists(filePath))
@@ -74,7 +75,9 @@ namespace FYPAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                // Log the exception for debugging purposes
+                // Also, consider returning a more informative error message to the client
+                return InternalServerError(ex);
             }
         }
 
@@ -172,8 +175,10 @@ namespace FYPAPI.Controllers
                 // Generate a unique filename
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
+
+                var uploadsFolder = HttpContext.Current.Server.MapPath("~/Uploads");
                 // Define the file path to save the uploaded file
-                var filePath = Path.Combine(@"G:\FYP\FYP\Uploads", fileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
 
                 // Save the file to the server
                 file.SaveAs(filePath);
@@ -182,7 +187,7 @@ namespace FYPAPI.Controllers
                 var solution = new Solution
                 {
                     AssignmentNumber = assignmentNumber,
-                    SolutionFilePath = filePath,
+                    SolutionFilePath = fileName,
                     Semester = semester,
                     Section = section
                 };
