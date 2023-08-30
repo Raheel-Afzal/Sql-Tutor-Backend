@@ -21,7 +21,7 @@
 
 //    public class DatbaseController : Controller
 //    {
-//        // FYP1Entities Db = new FYP1Entities();
+//        // FYP2Entities Db = new FYP2Entities();
 
 //        // GET: Datbase
 //        string constr = "Data Source=DESKTOP-KIDCKCN;Integrated Security=True";
