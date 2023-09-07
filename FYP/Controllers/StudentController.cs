@@ -405,7 +405,7 @@ namespace FYPAPI.Controllers
 
 
         [System.Web.Http.HttpGet]
-        public IHttpActionResult DownloadAssignment(int assignmentId)
+        public HttpResponseMessage DownloadAssignment(int assignmentId)
         {
             try
             {
@@ -414,19 +414,19 @@ namespace FYPAPI.Controllers
                 {
                     var assignment = dbContext.Assignments.Find(assignmentId);
                     if (assignment == null)
-                        return NotFound();
+                        return Request.CreateResponse(HttpStatusCode.NotFound);
 
                     // Retrieve the file path from the assignment
-                    var filePath = assignment.QuestionText;
+                    var filePath = assignment.assignFile;
 
                     // Check if the file exists
                     if (!File.Exists(filePath))
-                        return NotFound();
+                        return Request.CreateResponse(HttpStatusCode.NotFound);
 
                     // Get the file name from the file path
                     var fileName = Path.GetFileName(filePath);
 
-                    // Read the file content
+               /*     // Read the file content
                     var fileBytes = File.ReadAllBytes(filePath);
 
                     // Create a new memory stream with the file content
@@ -444,13 +444,13 @@ namespace FYPAPI.Controllers
                     {
                         FileName = fileName
                     };
-
-                    return ResponseMessage(fileContentResult);
+*/
+                    return Request.CreateResponse(HttpStatusCode.OK,fileName);
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
     }

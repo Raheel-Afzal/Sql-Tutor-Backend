@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -66,7 +67,29 @@ namespace FYPAPI.Controllers
             return Ok("Assignment solution uploaded successfully.");
         }
 
-        //
+
+        [HttpGet]
+        public HttpResponseMessage LoginTeacher(string Temail, string Tpassword)
+        {
+            try
+            {
+                Teacher user = Db.Teachers.Where(a => a.Temail == Temail && a.Tpassword == Tpassword).FirstOrDefault();
+                if (user != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, user);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+      /*  //
         [System.Web.Http.HttpGet]
         public IHttpActionResult Login(string Temail, string Tpassword)
         {
@@ -83,7 +106,7 @@ namespace FYPAPI.Controllers
             }
 
             return Ok(emp);
-        }
+        }*/
         //[System.Web.Http.HttpGet]
         //public IHttpActionResult GetStudentInfoByEmail(string email)
         //{
@@ -99,6 +122,30 @@ namespace FYPAPI.Controllers
         //    return Ok(info);
         //}
         //
+
+        [HttpPut]
+        public HttpResponseMessage editAssignmentDetail(Assignment assignDetail)
+        {
+            try
+            {
+                Assignment getAssignment = Db.Assignments.Where(s => s.Aid == assignDetail.Aid).FirstOrDefault();
+                getAssignment.Section = assignDetail.Section;
+                getAssignment.Smester = assignDetail.Smester;
+                getAssignment.Deadline = assignDetail.Deadline;
+                getAssignment.DatabaseName = assignDetail.DatabaseName;
+                getAssignment.QuestionText = assignDetail.QuestionText;
+                getAssignment.Title = assignDetail.Title;
+                Db.SaveChanges();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "updated Sucessfully");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [System.Web.Http.HttpGet]
 
         public IHttpActionResult GetStudentInfoByEmail(string email)
@@ -112,13 +159,24 @@ namespace FYPAPI.Controllers
             return Ok(student);
         }
         //
-        [System.Web.Http.HttpGet]
-        [Route("api/Teacher/GetAssgs")]
-        public IHttpActionResult GetAssgs()
+        [HttpGet]
+   
+        public HttpResponseMessage getTeacherAssignment(int teacherId)
         {
-            List<Assignment> list = Db.Assignments.ToList();
-            return Ok(list);
+            try
+            {
+                List<Assignment> list = Db.Assignments.Where(a => a.Tid == teacherId).ToList();
+               
+                return Request.CreateResponse(HttpStatusCode.OK, list);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+
+            
         }
+
         //
         [System.Web.Http.HttpGet]
         [Route("api/Teacher/GetTStudentInfo")]
@@ -257,6 +315,7 @@ namespace FYPAPI.Controllers
         //}
 
         //
+
         [System.Web.Http.HttpPost]
         [Route("api/teacher/InsertAmarkRecord")]
         public IHttpActionResult InsertAmarkRecord(Amark amark)
@@ -424,13 +483,17 @@ namespace FYPAPI.Controllers
                 if (file.ContentLength == 0)
                     return BadRequest("Uploaded file has no content.");
 
+
                 // Extract other form data parameters
-                var assignmentNumber = Convert.ToInt32(httpRequest.Form["assignmentNumber"]);
+                var assignmentNumber = Convert.ToInt32(httpRequest.Form["AssignmentNumber"]);
                 var title = httpRequest.Form["title"];
+                var TeacherId = Convert.ToInt32( httpRequest.Form["Tid"]);
                 var deadline = Convert.ToDateTime(httpRequest.Form["deadline"]);
                 var databaseName = httpRequest.Form["databaseName"];
                 var section = httpRequest.Form["section"];
-               
+                var questionText = httpRequest.Form["QuestionText"];
+
+
                 var semester = Convert.ToInt32(httpRequest.Form["semester"]);
 
 
@@ -450,11 +513,15 @@ namespace FYPAPI.Controllers
                 {
                     AssignmentNumber = int.Parse(assignmentNumber.ToString()),
                     Title = title,
-                    QuestionText = filePath,
+                    Tid = TeacherId,
+                    assignFile = fileName,
+                    QuestionText = questionText,
                     Deadline = deadline,
                     DatabaseName = databaseName,
                     Section = section,
-                    Smester = semester
+                    Smester = semester,
+                    totalMarks = 20,
+                    
                 };
 
                 // Add the assignment to the database and save changes
@@ -472,7 +539,136 @@ namespace FYPAPI.Controllers
             }
         }
 
+        [HttpPut]
+        public HttpResponseMessage markAssignment(int mid, int marks)
+        {
+            try
+            {
+                AssignmentMark assignMark = Db.AssignmentMarks.Where(m => m.mid == mid).FirstOrDefault();
+                assignMark.assignMarks = marks;
+                Db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.OK, "ok");
+            }
+            catch (Exception ex)
+            {
 
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+
+            }
+        }
+
+        [HttpPut]
+        public HttpResponseMessage markStudentAssigment(int mid,int marks)
+        {
+
+            try
+            {
+                AssignmentMark assignmentMarks = Db.AssignmentMarks.Where(a => a.mid == mid).FirstOrDefault();
+                Assignment assignment = Db.Assignments.Where(a => a.Aid == assignmentMarks.aid).FirstOrDefault();
+                int totalMarks = assignment.totalMarks;
+
+                if(marks>totalMarks) {
+                    return Request.CreateResponse(HttpStatusCode.OK, "marks can't be greater than total marks");
+
+                }
+                else
+                {
+                    assignmentMarks.assignMarks = marks;
+                    Db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK, "marks saved");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getTopStudents(int aid,string semester, string section,int howMany)
+        {
+
+            try
+            {
+
+               var students = Db.Students.Where(s=>s.Semester == semester && s.Section == section ).ToList();
+
+               List<AssignmentMark> topAssignments = new List<AssignmentMark>();
+
+
+                foreach(Student student in students)
+                {
+                   AssignmentMark assignmentMark =  Db.AssignmentMarks.Where(a => a.aid == aid && a.sid == student.Sid).FirstOrDefault();
+                    if(assignmentMark!=null && assignmentMark.assignMarks != -1)
+                    {
+                             topAssignments.Add(assignmentMark);
+
+                    }
+                }
+
+                topAssignments =  topAssignments.OrderByDescending(s => s.assignMarks).Take(howMany).ToList();
+                List<object> assignmentDetail = new List<object>();
+
+
+                foreach (var submittedAssignDetail in topAssignments)
+                {
+                    Assignment assignDetail = Db.Assignments.Where(s => s.Aid == submittedAssignDetail.aid).FirstOrDefault();
+                    Student studentDetail = Db.Students.Where(s => s.Sid == submittedAssignDetail.sid).FirstOrDefault();
+                    assignmentDetail.Add(new
+                    {
+                        assignDetail,
+                        studentDetail,
+                        submittedAssignDetail
+                    });
+                }
+
+
+                    return Request.CreateResponse(HttpStatusCode.OK, assignmentDetail);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage getStudentAssignment(int tid)
+        {
+
+            try
+            {
+
+                List<object> assignmentDetail = new List<object>();
+               var submittedAssignDetails =  Db.AssignmentMarks.Where(t => t.tid == tid).ToList();
+                foreach(var submittedAssignDetail in submittedAssignDetails)
+                {
+                    Assignment assignDetail = Db.Assignments.Where(s => s.Aid == submittedAssignDetail.aid).FirstOrDefault();
+                    Student studentDetail = Db.Students.Where(s => s.Sid == submittedAssignDetail.sid).FirstOrDefault();
+                    assignmentDetail.Add(new
+                    {
+                        assignDetail,
+                        studentDetail,
+                        submittedAssignDetail
+                    });
+                    
+                    
+
+
+                }
+              
+                return Request.CreateResponse(HttpStatusCode.OK, assignmentDetail);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
 
         [System.Web.Http.HttpGet]
         public IHttpActionResult marks(int Sid)

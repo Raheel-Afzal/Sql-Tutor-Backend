@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -12,20 +14,21 @@ namespace FYPAPI.Controllers
     [EnableCors("*", "*", "*")]
     public class QueryRunController : ApiController
     {
+        FYP1Entities db = new FYP1Entities();
         [HttpPost]
-        public async Task<HttpResponseMessage> RunQuery(string databaseName, [FromUri] string query)
+        public async Task<HttpResponseMessage> RunQuery(string databaseName, [FromUri] string query, int aid, int sid,int tid)
         {
+          
+           
             try
             {
                 if (string.IsNullOrEmpty(databaseName) || string.IsNullOrEmpty(query))
                 {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid database name or query.");
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Invalid database name or query is null.");
                 }
 
                 // Connection string for the SQL Server
                 string constr = "Server=DESKTOP-UBEKQ4F;Database=" + databaseName +";user id=sa;password=123;MultipleActiveResultSets=True";
-
-                string connectionString = "Server=DESKTOP-KIDCKCN;Database=" + databaseName + ";Trusted_Connection=True;";
 
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
@@ -49,6 +52,16 @@ namespace FYPAPI.Controllers
                                 result.Add(row);
                             }
 
+                            AssignmentMark assignMarks = new AssignmentMark();
+                            assignMarks.aid = aid;
+                            assignMarks.sid = sid;
+                            assignMarks.answer = query;
+                            assignMarks.tid = tid;
+                            assignMarks.assignMarks = -1;
+
+                            db.AssignmentMarks.Add(assignMarks);
+                            db.SaveChanges();
+
                             return Request.CreateResponse(HttpStatusCode.OK, result);
                         }
                     }
@@ -56,8 +69,11 @@ namespace FYPAPI.Controllers
             }
             catch (Exception ex)
             {
+               
+
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error executing query: " + ex.Message);
             }
+           
         }
     }
 }

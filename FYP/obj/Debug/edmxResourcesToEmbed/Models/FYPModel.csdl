@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="FYPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="FYPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Amark">
     <Key>
       <PropertyRef Name="Mid" />
@@ -13,17 +13,17 @@
     <Key>
       <PropertyRef Name="Aid" />
     </Key>
+    <Property Name="Aid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tid" Type="Int32" Nullable="false" />
     <Property Name="AssignmentNumber" Type="Int32" Nullable="false" />
     <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DatabaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Section" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Smester" Type="Int32" />
-    <Property Name="Aid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="QuestionNo" Type="Int32" />
-    <Property Name="Tid" Type="Int32" />
-    <Property Name="assignFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Section" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Smester" Type="Int32" Nullable="false" />
+    <Property Name="assignFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="totalMarks" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="AssignmentSolution">
     <Key>
@@ -86,6 +86,18 @@
     <Property Name="Temail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Tpassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
+  <EntityType Name="AssignmentMark">
+    <Key>
+      <PropertyRef Name="mid" />
+      <PropertyRef Name="aid" />
+      <PropertyRef Name="sid" />
+      <PropertyRef Name="assignMarks" />
+    </Key>
+    <Property Name="mid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="aid" Type="Int32" Nullable="false" />
+    <Property Name="sid" Type="Int32" Nullable="false" />
+    <Property Name="assignMarks" Type="Int32" Nullable="false" />
+  </EntityType>
   <EntityType Name="Database">
     <Key>
       <PropertyRef Name="Aid" />
@@ -103,6 +115,7 @@
     <EntitySet Name="Solutions" EntityType="Self.Solution" />
     <EntitySet Name="Students" EntityType="Self.Student" />
     <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+    <EntitySet Name="AssignmentMarks" EntityType="Self.AssignmentMark" />
     <EntitySet Name="Databases" EntityType="Self.Database" />
   </EntityContainer>
 </Schema>

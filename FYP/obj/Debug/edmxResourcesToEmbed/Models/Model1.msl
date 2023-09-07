@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="FYPModelStoreContainer" CdmEntityContainer="FYP1Entities">
+  <EntityContainerMapping StorageEntityContainer="FYPDBModelStoreContainer" CdmEntityContainer="FYP1Entities">
     <EntitySetMapping Name="Amarks">
-      <EntityTypeMapping TypeName="FYPModel.Amark">
+      <EntityTypeMapping TypeName="FYPDBModel.Amark">
         <MappingFragment StoreEntitySet="Amarks">
           <ScalarProperty Name="Sid" ColumnName="Sid" />
           <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
@@ -12,9 +12,9 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Assignments">
-      <EntityTypeMapping TypeName="FYPModel.Assignment">
+      <EntityTypeMapping TypeName="FYPDBModel.Assignment">
         <MappingFragment StoreEntitySet="Assignment">
-          <ScalarProperty Name="assignFile" ColumnName="assignFile" />
+          <ScalarProperty Name="Aid" ColumnName="Aid" />
           <ScalarProperty Name="Tid" ColumnName="Tid" />
           <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -23,13 +23,25 @@
           <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
           <ScalarProperty Name="Section" ColumnName="Section" />
           <ScalarProperty Name="Smester" ColumnName="Smester" />
-          <ScalarProperty Name="Aid" ColumnName="Aid" />
-          <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
+          <ScalarProperty Name="assignFile" ColumnName="assignFile" />
+          <ScalarProperty Name="totalMarks" ColumnName="totalMarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignmentMarks">
+      <EntityTypeMapping TypeName="FYPDBModel.AssignmentMark">
+        <MappingFragment StoreEntitySet="AssignmentMarks">
+          <ScalarProperty Name="tid" ColumnName="tid" />
+          <ScalarProperty Name="answer" ColumnName="answer" />
+          <ScalarProperty Name="mid" ColumnName="mid" />
+          <ScalarProperty Name="aid" ColumnName="aid" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="assignMarks" ColumnName="assignMarks" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AssignmentSolutions">
-      <EntityTypeMapping TypeName="FYPModel.AssignmentSolution">
+      <EntityTypeMapping TypeName="FYPDBModel.AssignmentSolution">
         <MappingFragment StoreEntitySet="AssignmentSolutions">
           <ScalarProperty Name="Sloid" ColumnName="Sloid" />
           <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
@@ -40,7 +52,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Enrollments">
-      <EntityTypeMapping TypeName="FYPModel.Enrollment">
+      <EntityTypeMapping TypeName="FYPDBModel.Enrollment">
         <MappingFragment StoreEntitySet="Enrollment">
           <ScalarProperty Name="Sid" ColumnName="Sid" />
           <ScalarProperty Name="Cid" ColumnName="Cid" />
@@ -48,7 +60,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Queries">
-      <EntityTypeMapping TypeName="FYPModel.Query">
+      <EntityTypeMapping TypeName="FYPDBModel.Query">
         <MappingFragment StoreEntitySet="Query">
           <ScalarProperty Name="Qid" ColumnName="Qid" />
           <ScalarProperty Name="Sid" ColumnName="Sid" />
@@ -61,7 +73,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Solutions">
-      <EntityTypeMapping TypeName="FYPModel.Solution">
+      <EntityTypeMapping TypeName="FYPDBModel.Solution">
         <MappingFragment StoreEntitySet="Solutions">
           <ScalarProperty Name="SolutionId" ColumnName="SolutionId" />
           <ScalarProperty Name="AssignmentNumber" ColumnName="AssignmentNumber" />
@@ -72,7 +84,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Students">
-      <EntityTypeMapping TypeName="FYPModel.Student">
+      <EntityTypeMapping TypeName="FYPDBModel.Student">
         <MappingFragment StoreEntitySet="Student">
           <ScalarProperty Name="Sid" ColumnName="Sid" />
           <ScalarProperty Name="Fname" ColumnName="Fname" />
@@ -85,7 +97,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Teachers">
-      <EntityTypeMapping TypeName="FYPModel.Teacher">
+      <EntityTypeMapping TypeName="FYPDBModel.Teacher">
         <MappingFragment StoreEntitySet="Teacher">
           <ScalarProperty Name="Tid" ColumnName="Tid" />
           <ScalarProperty Name="Fname" ColumnName="Fname" />
@@ -96,7 +108,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Databases">
-      <EntityTypeMapping TypeName="FYPModel.Database">
+      <EntityTypeMapping TypeName="FYPDBModel.Database">
         <MappingFragment StoreEntitySet="Database">
           <ScalarProperty Name="Aid" ColumnName="Aid" />
           <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />

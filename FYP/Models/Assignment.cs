@@ -14,14 +14,16 @@ namespace FYP.Models
     
     public partial class Assignment
     {
+        public int Aid { get; set; }
+        public int Tid { get; set; }
         public int AssignmentNumber { get; set; }
         public string Title { get; set; }
         public string QuestionText { get; set; }
         public System.DateTime Deadline { get; set; }
         public string DatabaseName { get; set; }
         public string Section { get; set; }
-        public Nullable<int> Smester { get; set; }
-        public int Aid { get; set; }
-        public Nullable<int> QuestionNo { get; set; }
+        public int Smester { get; set; }
+        public string assignFile { get; set; }
+        public int totalMarks { get; set; }
     }
 }
